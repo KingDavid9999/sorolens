@@ -106,6 +106,17 @@ type MonitoredContract struct {
 	UpdatedAt     time.Time  `json:"updated_at"`
 }
 
+// StreamMessage mirrors a single server-sent event emitted by the
+// /api/v1/stream/events endpoint. Type is one of "connected", "event" or
+// "alert"; exactly one of Event or Alert is populated for those cases.
+type StreamMessage struct {
+	Type       string `json:"type"`
+	ContractID string `json:"contract_id,omitempty"`
+	Event      *Event `json:"event,omitempty"`
+	Alert      any    `json:"alert,omitempty"`
+	Message    string `json:"message,omitempty"`
+}
+
 // SorolensError carries the error envelope returned by the API on non-2xx responses.
 type SorolensError struct {
 	Code      string
